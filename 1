@@ -1,0 +1,56 @@
+package cn.lyh.factorymethod.creatcar;
+
+public class FactoryMethod {
+    public static void main(String[] args) {
+        CarFactory carFactory= new ConBenzFactory();
+        Car car = carFactory.creatCar();
+        car.getName();
+    }
+}
+
+//车的基类
+interface Car{
+    void getName();
+}
+
+//工厂基类
+interface CarFactory{
+    Car creatCar();
+
+    default Car getCar(){
+        Car car = creatCar();
+        return car;
+    }
+}
+
+//宝马车
+class BMW implements Car{
+    @Override
+    public void getName() {
+        System.out.println("宝马");
+    }
+}
+
+//奔驰车
+class Benz implements Car{
+    @Override
+    public void getName() {
+        System.out.println("奔驰");
+    }
+}
+
+//宝马车工厂
+class ConBMWFactory implements CarFactory{
+    @Override
+    public Car creatCar() {
+        return new BMW();
+    }
+}
+
+//奔驰车工厂
+class ConBenzFactory implements CarFactory{
+    @Override
+    public Car creatCar() {
+        return new Benz();
+    }
+}
